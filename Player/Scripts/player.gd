@@ -2,44 +2,19 @@ class_name Player extends CharacterBody2D
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
-var move_speed : float = 70.0
-var state : String = "idle"
-var sprinting: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
-
+@onready var state_machine: PlayerStateMachine = $StateMachine
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
-	UpdateAnimation()
+	state_machine.Initialize(self)
 	pass
 	
 func _process(delta: float) -> void:
-	
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
-	
-	# Prevent diagonal movement
-	if direction.x != 0:
-		direction.y = 0
-	
-	# Toggle sprint
-	if Input.is_action_just_pressed("sprint"):
-		sprinting = !sprinting
-		
-		#sprinting = false
-	
-	var current_speed: float = move_speed
-	
-	if sprinting:
-		current_speed = 100.0
-	
-	velocity = direction * current_speed
-	
-	if SetState() || SetDirection():
-		UpdateAnimation()
-	
 	pass
 	
 func _physics_process(delta: float) -> void:
@@ -64,15 +39,7 @@ func SetDirection() -> bool:
 	  	
 	return true
 
-func SetState() -> bool:
-	var new_state : String = "idle" if direction == Vector2.ZERO else "walk"
-	if new_state == state:
-		return false
-		
-	state = new_state
-	return true
-
-func UpdateAnimation() -> void:
+func UpdateAnimation(state: String) -> void:
 	animation_player.play(state + "_" + AnimDirection())
 	pass
 	
