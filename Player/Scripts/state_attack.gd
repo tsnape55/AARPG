@@ -1,7 +1,7 @@
 class_name State_Attack extends State
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var attack_animation_player: AnimationPlayer = $"../../Sprite2D/AttackEffectSprite/AnimationPlayer"
-@onready var hurt_box: AttackHurtBox = $"../../Interactions/AttackHurtBox"
+@onready var hurt_box: AttackHurtBox = $"../../Sprite2D/AttackHurtBox"
 
 @export var attack_sound : AudioStream
 @export_range(1, 20, 0.5) var decelerate_speed : float = 5.0
