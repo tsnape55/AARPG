@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bf4esf57fcnh8"]
+[gd_scene load_steps=31 format=3 uid="uid://bf4esf57fcnh8"]
 
 [ext_resource type="Script" uid="uid://ctsb7gt5eaig8" path="res://Player/Scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://o3e3kn504do0" path="res://Player/Sprites/PlayerSprite02.png" id="2_k53q1"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cblofb7dhp5kl" path="res://Player/Scripts/state_walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://b8pyqakahb8wh" path="res://Player/Scripts/state_attack.gd" id="6_fhl08"]
 [ext_resource type="AudioStream" uid="uid://vhklc13rqe38" path="res://Player/Audio/SwordSwoosh.wav" id="8_od3ui"]
+[ext_resource type="Script" uid="uid://bu20alul3tyg3" path="res://Player/Scripts/player_interactions_host.gd" id="10_apopc"]
+[ext_resource type="PackedScene" uid="uid://dq06virodhfm8" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="10_x3vf3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edjgo"]
 radius = 11.0
@@ -424,8 +426,11 @@ _data = {
 &"walk_up": SubResource("Animation_vtle1")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_apopc"]
+radius = 20.0
+
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(216, 116)
+position = Vector2(0, -20)
 collision_mask = 16
 motion_mode = 1
 wall_min_slide_angle = 0.17453292
@@ -436,7 +441,7 @@ position = Vector2(0, 19)
 shape = SubResource("CircleShape2D_edjgo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(-1, 5)
 scale = Vector2(1, 1.015625)
 texture = ExtResource("2_k53q1")
 hframes = 16
@@ -484,4 +489,17 @@ zoom = Vector2(0.9, 0.9)
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Audio"]
+volume_db = -12.0
 max_polyphony = 4
+
+[node name="Interactions" type="Node2D" parent="."]
+script = ExtResource("10_apopc")
+
+[node name="AttackHurtBox" parent="Interactions" instance=ExtResource("10_x3vf3")]
+position = Vector2(-2, 25)
+collision_mask = 256
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/AttackHurtBox"]
+shape = SubResource("CircleShape2D_apopc")
+debug_color = Color(0.99525505, 0, 0.21626571, 0.41960785)
