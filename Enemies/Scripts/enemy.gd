@@ -2,6 +2,8 @@ class_name Enemy extends CharacterBody2D
 
 signal direction_changed(new_direction: Vector2)
 signal enemy_damaged()
+signal enemy_destroyed()
+
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
  	
 var cardinal_direction : Vector2 = Vector2.DOWN
@@ -11,7 +13,7 @@ var invulernable : bool = false
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
-#@onready var hit_box : HitBox = $HitBox
+@onready var hit_box : HitBox = $HitBox
 @onready var state_machine : EnemyStateMachine = $EnemyStateMachine
 
 @export var hp : int = 3
@@ -19,6 +21,7 @@ var invulernable : bool = false
 func _ready():
 	state_machine.initialize(self)
 	player = PlayerManager.player
+	hit_box.Damaged.connect(take_damage)
 	pass
 
 func _physics_process(_delta: float) -> void:
@@ -52,3 +55,14 @@ func anim_direction() -> String:
 		return "up"
 	else:
 		return "side"
+		
+func take_damage(damage: int) -> void:
+	if invulernable == true:
+		return
+		
+	hp -= damage
+	if hp > 0:
+		enemy_damaged.emit()
+	else:
+		enemy_destroyed.emit()
+	
