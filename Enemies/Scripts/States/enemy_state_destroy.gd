@@ -3,6 +3,7 @@ class_name EnemyStateDestroy extends EnemyState
 @export var anim_name : String = "destroy"
 @export var knockback_speed: float = 200.0
 @export var decelerate_speed: float = 10.0
+@onready var hurt_box: HurtBox = $"../../HurtBox"
 
 var _damage_position: Vector2
 var _direction : Vector2
@@ -13,6 +14,7 @@ func init() -> void:
 	
 func enter() -> void:
 	enemy.invulernable = true
+	hurt_box.monitoring = false
 	_direction = enemy.player.global_position.direction_to(_damage_position)
 	
 	enemy.set_direction(_direction)
