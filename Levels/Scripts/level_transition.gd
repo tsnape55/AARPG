@@ -49,7 +49,7 @@ func player_entered(body: Node2D) -> void:
 		return
 
 	# Disable immediately so overlapping physics frames cannot start two loads.
-	monitoring = false
+	set_deferred("monitoring", false)
 	LevelManager.load_new_level(level, target_transition_area, get_offset())
 	pass	
 	
