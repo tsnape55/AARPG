@@ -17,8 +17,8 @@ signal direction_changed(new_direction: Vector2)
 signal player_damaged(hurt_box: HurtBox)
 
 var invulernerable: bool = false
-var hp : int = 6
-var max_hp : int = 6
+var hp : int = 12
+var max_hp : int = 12
 
 
 # Called when the node enters the scene tree for the first time
