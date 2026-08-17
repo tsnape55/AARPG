@@ -37,6 +37,9 @@ position = Vector2(478, 224)
 [node name="Slime7" parent="." instance=ExtResource("4_ut76y")]
 position = Vector2(631, 95)
 
+[node name="Slime8" parent="." instance=ExtResource("4_ut76y")]
+position = Vector2(656, 154)
+
 [node name="LevelTransition2" parent="." instance=ExtResource("5_koc1c")]
 position = Vector2(-2, 147)
 level = "uid://dbequpfyc37bc"

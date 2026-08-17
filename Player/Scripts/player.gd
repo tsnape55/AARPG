@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 var cardinal_direction : Vector2 = Vector2.DOWN
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP] 	
 var direction: Vector2 = Vector2.ZERO
+@export_range(0.0, 1.0, 0.05) var controller_diagonal_deadzone: float = 0.35
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var effect_animation_player: AnimationPlayer = $EffectAnimationPlayer
@@ -33,7 +34,14 @@ func _process(_delta: float) -> void:
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
 	)
-	
+
+	# Ignore a small secondary stick axis so near-cardinal input stays cardinal.
+	# Keyboard and D-pad axes are always 1.0, so their diagonals are unaffected.
+	if direction.y != 0.0 and abs(direction.x) < controller_diagonal_deadzone:
+		direction.x = 0.0
+	if direction.x != 0.0 and abs(direction.y) < controller_diagonal_deadzone:
+		direction.y = 0.0
+
 	direction = direction.normalized()
 	pass
 	
@@ -56,6 +64,30 @@ func SetDirection() -> bool:
 	direction_changed.emit(cardinal_direction)	
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	  	
+	return true
+
+func FaceMouseForAttack(event: InputEvent) -> void:
+	if not event is InputEventMouseButton:
+		return
+	FaceMouseDirection()
+
+func FaceMouseDirection() -> bool:
+	var mouse_direction := global_position.direction_to(get_global_mouse_position())
+	if mouse_direction == Vector2.ZERO:
+		return false
+
+	var new_direction: Vector2
+	if abs(mouse_direction.x) >= abs(mouse_direction.y):
+		new_direction = Vector2.RIGHT if mouse_direction.x > 0.0 else Vector2.LEFT
+	else:
+		new_direction = Vector2.DOWN if mouse_direction.y > 0.0 else Vector2.UP
+
+	if new_direction == cardinal_direction:
+		return false
+
+	cardinal_direction = new_direction
+	direction_changed.emit(cardinal_direction)
+	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 
 func UpdateAnimation(state: String) -> void:

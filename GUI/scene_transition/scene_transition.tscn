@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cor80mw044s8j" path="res://GUI/scene_transition/scene_transition.gd" id="1_g0eyb"]
 
-[sub_resource type="Animation" id="Animation_g0eyb"]
-resource_name = "default"
-length = 0.1
+[sub_resource type="Animation" id="Animation_ju5is"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,8 +17,9 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ju5is"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_g0eyb"]
+resource_name = "default"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

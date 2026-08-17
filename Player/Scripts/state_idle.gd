@@ -21,6 +21,7 @@ func Physics(_delta: float) -> State:
 	
 func HandleInput(_event: InputEvent) -> State:
 	if _event.is_action_pressed("attack"):
+		player.FaceMouseForAttack(_event)
 		return attack
 		
 	return null
