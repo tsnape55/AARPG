@@ -1,6 +1,8 @@
 extends Node
 
 const PLAYER = preload("uid://bf4esf57fcnh8")
+const INVENTORY_DATA : InventoryData = preload("uid://b178vcvcbous1")
+
 var player: Player
 var player_spawned: bool = false
 
@@ -32,3 +34,4 @@ func set_as_parent(p: Node2D) -> void:
 	
 func unparent_player(p: Node2D) -> void:
 	p.remove_child(player)
+	

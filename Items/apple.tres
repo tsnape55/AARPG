@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bib8y413u713u"]
+
+[ext_resource type="Script" uid="uid://dbje348p4g64" path="res://Items/item_effect/item_effect.gd" id="1_xwhp1"]
+[ext_resource type="Script" uid="uid://ht1w57jvhrro" path="res://Items/item_effect/item_effect_heal.gd" id="2_fnc8c"]
+[ext_resource type="Script" uid="uid://ddhmoomkut0vj" path="res://Items/Scripts/resource_item_data.gd" id="2_ovoyb"]
+[ext_resource type="AudioStream" uid="uid://b4epbdfhar41u" path="res://Items/item_effect/hp-up.wav" id="3_3wksx"]
+[ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="3_ovoyb"]
+
+[sub_resource type="Resource" id="Resource_3wksx"]
+script = ExtResource("2_fnc8c")
+heal_amount = 4
+sound = ExtResource("3_3wksx")
+use_description = "A juicy apple!"
+metadata/_custom_type_script = "uid://ht1w57jvhrro"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnc8c"]
+atlas = ExtResource("3_ovoyb")
+region = Rect2(192, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_ovoyb")
+name = "Apple"
+description = "A juicy apple!"
+texture = SubResource("AtlasTexture_fnc8c")
+effects = Array[ExtResource("1_xwhp1")]([SubResource("Resource_3wksx")])
+metadata/_custom_type_script = "uid://ddhmoomkut0vj"
