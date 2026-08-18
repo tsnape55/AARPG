@@ -8,7 +8,6 @@
 
 [sub_resource type="Resource" id="Resource_3wksx"]
 script = ExtResource("2_fnc8c")
-heal_amount = 4
 sound = ExtResource("3_3wksx")
 use_description = "A juicy apple!"
 metadata/_custom_type_script = "uid://ht1w57jvhrro"
