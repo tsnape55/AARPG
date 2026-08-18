@@ -1,5 +1,5 @@
 @tool 
-class_name ItemPickup extends Node
+class_name ItemPickup extends CharacterBody2D
 
 @export var item_data: ItemData : set = set_item_data
 
@@ -15,6 +15,13 @@ func _ready() -> void:
 	area_2d.body_entered.connect(on_body_entered)	
 	
 	pass
+	
+func _physics_process(delta: float) -> void:
+	var collision_info = move_and_collide(velocity * delta)
+	if collision_info:
+		velocity = velocity.bounce(collision_info.get_normal())
+	velocity -= velocity * delta * 4
+		
 
 func set_item_data(value: ItemData) -> void:
 	update_texture()

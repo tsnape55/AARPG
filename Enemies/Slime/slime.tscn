@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bie6t3a1giyey"]
+[gd_scene load_steps=43 format=3 uid="uid://bie6t3a1giyey"]
 
 [ext_resource type="Script" uid="uid://v2vv4brefs2t" path="res://Enemies/Scripts/enemy.gd" id="1_t8cwk"]
 [ext_resource type="Texture2D" uid="uid://lgshoql8fatw" path="res://Enemies/Slime/Slime.png" id="1_wwfkb"]
@@ -12,7 +12,12 @@
 [ext_resource type="Script" uid="uid://8bxy7qaqxj6m" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="9_2qn7y"]
 [ext_resource type="Texture2D" uid="uid://frs1lgv6ye8a" path="res://Enemies/Slime/DestroySmoke.png" id="9_8tnav"]
 [ext_resource type="Script" uid="uid://2osb88vlowsm" path="res://Enemies/Scripts/States/enemy_state_destroy.gd" id="10_843tw"]
+[ext_resource type="Script" uid="uid://uia0j03xuypw" path="res://Enemies/Scripts/drop_data.gd" id="11_nsi17"]
 [ext_resource type="PackedScene" uid="uid://enmafocwbyb2" path="res://GeneralNodes/HitBox/hit_box.tscn" id="11_pydiu"]
+[ext_resource type="Resource" uid="uid://bib8y413u713u" path="res://Items/apple.tres" id="12_vjyi2"]
+[ext_resource type="Resource" uid="uid://dqyr35tvwdh1c" path="res://Items/gem.tres" id="13_vjyi2"]
+[ext_resource type="Resource" uid="uid://bpfit3tnwae6r" path="res://Items/potion.tres" id="14_67htc"]
+[ext_resource type="Resource" uid="uid://b6nsag456x00t" path="res://Items/stone.tres" id="15_5lnrd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oij8y"]
 radius = 4.996509
@@ -698,6 +703,31 @@ _data = {
 &"walk_up": SubResource("Animation_jlwhn")
 }
 
+[sub_resource type="Resource" id="Resource_yynal"]
+script = ExtResource("11_nsi17")
+item = ExtResource("12_vjyi2")
+probability = 50.0
+max_amount = 2.0
+metadata/_custom_type_script = "uid://uia0j03xuypw"
+
+[sub_resource type="Resource" id="Resource_67htc"]
+script = ExtResource("11_nsi17")
+item = ExtResource("13_vjyi2")
+probability = 10.0
+metadata/_custom_type_script = "uid://uia0j03xuypw"
+
+[sub_resource type="Resource" id="Resource_mevii"]
+script = ExtResource("11_nsi17")
+item = ExtResource("14_67htc")
+probability = 5.0
+metadata/_custom_type_script = "uid://uia0j03xuypw"
+
+[sub_resource type="Resource" id="Resource_qqw3w"]
+script = ExtResource("11_nsi17")
+item = ExtResource("15_5lnrd")
+probability = 1.0
+metadata/_custom_type_script = "uid://uia0j03xuypw"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8fnr"]
 
 [sub_resource type="Animation" id="Animation_843tw"]
@@ -808,6 +838,7 @@ next_state = NodePath("../Idle")
 
 [node name="Destroy" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("10_843tw")
+drops = Array[ExtResource("11_nsi17")]([SubResource("Resource_yynal"), SubResource("Resource_67htc"), SubResource("Resource_mevii"), SubResource("Resource_qqw3w")])
 
 [node name="HurtBox" parent="." instance=ExtResource("7_jlwhn")]
 
