@@ -18,7 +18,7 @@ func Process(_delta: float) -> State:
 		return idle
 		
 	var speed_multiplier := diagonal_speed_multiplier if player.direction.x != 0.0 and player.direction.y != 0.0 else 1.0
-	player.velocity = player.direction * move_speed * speed_multiplier
+	player.velocity = player.direction * move_speed * speed_multiplier * player.speed_multiplier
 	
 	if player.SetDirection():
 		player.UpdateAnimation("walk")

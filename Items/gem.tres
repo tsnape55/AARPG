@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://dqyr35tvwdh1c"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://dqyr35tvwdh1c"]
 
 [ext_resource type="Script" uid="uid://ddhmoomkut0vj" path="res://Items/Scripts/resource_item_data.gd" id="1_5ujwg"]
 [ext_resource type="Script" uid="uid://dbje348p4g64" path="res://Items/item_effect/item_effect.gd" id="1_yq8b3"]
+[ext_resource type="Script" uid="uid://cgv8d6yr4awhf" path="res://Items/item_effect/item_effect_speed.gd" id="2_gpbqg"]
 [ext_resource type="Texture2D" uid="uid://btd6qdeeb4j4m" path="res://Items/Sprites/items.png" id="2_kvxp5"]
+[ext_resource type="AudioStream" uid="uid://bv0w5n417h27e" path="res://Items/item_effect/level_up_jingle.wav" id="3_uq7yq"]
+
+[sub_resource type="Resource" id="Resource_uq7yq"]
+script = ExtResource("2_gpbqg")
+speed_increase_percent = 50
+speed_increase_duration = 5
+sound = ExtResource("3_uq7yq")
+metadata/_custom_type_script = "uid://cgv8d6yr4awhf"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yq8b3"]
 atlas = ExtResource("2_kvxp5")
@@ -13,4 +22,5 @@ script = ExtResource("1_5ujwg")
 name = "Gem"
 description = "A valuable gem!"
 texture = SubResource("AtlasTexture_yq8b3")
+effects = Array[ExtResource("1_yq8b3")]([SubResource("Resource_uq7yq")])
 metadata/_custom_type_script = "uid://ddhmoomkut0vj"

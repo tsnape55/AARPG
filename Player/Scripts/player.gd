@@ -19,6 +19,8 @@ signal player_damaged(hurt_box: HurtBox)
 var invulernerable: bool = false
 var hp : int = 12
 var max_hp : int = 12
+var speed_multiplier: float = 1.0
+var _speed_effect_version: int = 0
 
 
 # Called when the node enters the scene tree for the first time
@@ -121,6 +123,17 @@ func update_hp(delta: int) -> void:
 	PlayerHud.update_hp(hp, max_hp)
 	
 	pass
+
+func update_speed(percent: int, duration: float) -> void:
+	_speed_effect_version += 1
+	var effect_version := _speed_effect_version
+	speed_multiplier = 1.0 + max(percent, 0) / 100.0
+
+	if duration > 0.0:
+		await get_tree().create_timer(duration).timeout
+
+	if effect_version == _speed_effect_version:
+		speed_multiplier = 1.0
 	
 func make_invulnerable(duration: float = 1.0) -> void:
 	invulernerable = true
